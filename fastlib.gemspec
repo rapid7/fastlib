@@ -10,7 +10,7 @@ Gem::Specification.new do |s|
 	s.summary               = "FASTLIB archive library"
 	s.description           = "This gem provides a way to load libraries from an archive"
 	s.license               = "BSD"
-	s.authors               = ["HD Moore"],
+	s.authors               = ["HD Moore"]
 	s.email		        	= ["hdm@metasploit.com"]
 	s.files                 = Dir['[A-Z]*'] + Dir['lib/**/*']
 	s.require_paths         = ["lib"]

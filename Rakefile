@@ -13,7 +13,7 @@ task :release => :build do
 end
 
 task :clean do
-	system "rm *.gem &> /dev/null"
+	system "rm -f *.gem >/dev/null 2>&1"
 end
 
 task :update do
