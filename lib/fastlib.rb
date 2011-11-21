@@ -229,10 +229,10 @@ class FastLib
 		( @@cache[lib] || {} ).keys.map{|x| x.to_s }.sort
 	end
 	
-	# This method is called on the loaded
-	
-	is required to expand __FILE__ and other inline
-	# dynamic constants to map to the correct location
+	#
+	# This method is called on the loaded is required to expand __FILE__
+	# and other inline dynamic constants to map to the correct location.
+	#
 	def self.post_process(lib, name, data)
 		data.gsub('__FILE__', "'#{ ::File.expand_path(::File.join(::File.dirname(lib), name)) }'")
 	end
