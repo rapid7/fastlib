@@ -6,7 +6,7 @@ This is similar to capabilities like zip/ziprequire, except that it provides wor
 
 # Usage
 
-$ apt-get install fastlib
+$ rvmsudo gem install fastlib
 
 ## Store a library structure into FASTLIB archive
     $ `gem env gemdir`/gems/fastlib-\*/lib/fastlib.rb store 00000000 myarchive.fastlib lib/ lib/\*
