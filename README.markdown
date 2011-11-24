@@ -28,6 +28,7 @@ $ \`gem env gemdir\`/gems/fastlib-\*/lib/fastlib.rb store 00000003 myarchive.fas
 $ ruby -I . -r mycrypto.rb \`gem env gemdir\`/gems/fastlib-\*/lib/fastlib.rb store 13370003 myarchive.fastlib lib/ lib/\*
 
 $ cat mycrypto.rb
+```ruby
 require 'openssl'
 class FastLib
 def encrypt_13370000(data)
@@ -36,6 +37,7 @@ end
 def decrypt_13370000(data)
 	# Decrypt
 end
+```
 
 # Credits
 Rapid7 LLC
