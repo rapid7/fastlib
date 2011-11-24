@@ -142,7 +142,7 @@ class FastLib
 				@@cache[lib][:fastlib_header][1] + 
 				@@cache[lib][name][0]
 			)
-			data = fastlib_filter_decode( @@cache[lib][:fastlib_flags], fd.read(@@cache[lib][name][1] ))
+			data = fastlib_filter_decode( lib, fd.read(@@cache[lib][name][1] ))
 		end
 		
 		# Return the contents in raw or processed form
