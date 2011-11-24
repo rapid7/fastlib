@@ -33,11 +33,11 @@ $ cat mycrypto.rb
     
     class FastLib
     
-        def encrypt_13370000(data)
+        def self.encrypt_13370000(data)
 	        # Encrypt
         end
     
-        def decrypt_13370000(data)
+        def self.decrypt_13370000(data)
 	        # Decrypt
         end
     
