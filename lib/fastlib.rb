@@ -249,22 +249,31 @@ class FastLib
 	
 	#
 	# This is a stub crypto handler that performs a basic XOR
-	# operation against a fixed one byte key
+	# operation against a fixed one byte key. The two usable IDs
+	# are 12345600 and 00000000
 	#
 	def self.encrypt_12345600(data)
-		data.unpack("C*").map{ |c| c ^ 0x90 }.pack("C*")
+		encrypt_00000000(data)
 	end
 	
 	def self.decrypt_12345600(data)
-		encrypt_12345600(data)
+		encrypt_00000000(data)
 	end
 	
+	def self.encrypt_00000000(data)
+		data.unpack("C*").map{ |c| c ^ 0x90 }.pack("C*")
+	end
+	
+	def self.decrypt_00000000(data)
+		encrypt_00000000(data)
+	end
+		
+	#
+	# Expose the cache to callers
+	#
 	def self.cache
 		@@cache
-	end
-	
-
-	
+	end	
 end
 
 

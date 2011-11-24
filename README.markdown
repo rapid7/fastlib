@@ -8,10 +8,34 @@ This is similar to capabilities like zip/ziprequire, except that it provides wor
 
 $ apt-get install fastlib
 
-$ \`gem env gemdir\`/gems/fastlib-\*/lib/fastlib.rb dump lib/myarchive.fastlib lib/ lib/\*
+## Store a library structure into FASTLIB archive
+$ \`gem env gemdir\`/gems/fastlib-\*/lib/fastlib.rb store 00000000 myarchive.fastlib lib/ lib/\*
+$ rm -rf lib
 
-$ ruby -r rubygems -r fastlib -I lib/myarchive.fastlib application.rb
+## Use that archive just by including the containing directory
+$ ruby -r rubygems -r fastlib -I. ./app.rb
 
+## Store a library structure into a FASTLIB archive with compression
+$ \`gem env gemdir\`/gems/fastlib-\*/lib/fastlib.rb store 00000001 myarchive.fastlib lib/ lib/\*
+
+## Store a library structure into a FASTLIB archive with default "encryption"
+$ \`gem env gemdir\`/gems/fastlib-\*/lib/fastlib.rb store 00000002 myarchive.fastlib lib/ lib/\*
+
+## Store a library structure into a FASTLIB archive with default "encryption" and compression
+$ \`gem env gemdir\`/gems/fastlib-\*/lib/fastlib.rb store 00000003 myarchive.fastlib lib/ lib/\*
+
+## Store a library structure into a FASTLIB archive with custom encryption and compression
+$ ruby -I . -r mycrypto.rb \`gem env gemdir\`/gems/fastlib-\*/lib/fastlib.rb store 13370003 myarchive.fastlib lib/ lib/\*
+
+$ cat mycrypto.rb
+require 'openssl'
+class FastLib
+def encrypt_13370000(data)
+	# Encrypt
+end
+def decrypt_13370000(data)
+	# Decrypt
+end
 
 # Credits
 Rapid7 LLC
