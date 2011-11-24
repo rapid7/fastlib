@@ -37,7 +37,7 @@ require "find"
 #
 class FastLib
 
-	VERSION = "0.0.6"
+	VERSION = "0.0.7"
 
 	FLAG_COMPRESS = 0x01
 	FLAG_ENCRYPT  = 0x02

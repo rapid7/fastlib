@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 APP_NAME = "fastlib"
-VERSION = "0.0.6"
+VERSION = "0.0.7"
 
 Gem::Specification.new do |s|
 	s.name                  = APP_NAME
