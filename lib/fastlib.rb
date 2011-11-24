@@ -382,10 +382,10 @@ end
 
 	* All integers are 32-bit and in network byte order (big endian / BE)
 	* The file signature is 0x46415354 (big endian, use htonl() if necessary)
-	* The header is always 8 bytes into the archive (magic + header length)
-	* The data section is always 8 + header length into the archive
+	* The header is always 12 bytes into the archive (magic + header length)
+	* The data section is always 12 + header length into the archive
 	* The header entries always start with 'fastlib_header'
-	* The header entries always consist of 12 bytes + name length (no alignment)
+	* The header entries always consist of 16 bytes + name length (no alignment)
 	* The header name data may be encoded, compressed, or transformed
 	* The data entries may be encoded, compressed, or transformed too
 	
