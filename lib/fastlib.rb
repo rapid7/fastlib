@@ -339,6 +339,7 @@ end
 
 	4 bytes: "FAST"
 	4 bytes: NBO header length
+	4 bytes: NBO flags (24-bit crypto ID, 8 bit modes)
 	[
 		4 bytes: name length (0 = End of Names)
 		4 bytes: data offset
