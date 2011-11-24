@@ -30,12 +30,17 @@ $ ruby -I . -r mycrypto.rb \`gem env gemdir\`/gems/fastlib-\*/lib/fastlib.rb sto
 $ cat mycrypto.rb
 
     require 'openssl'
+    
     class FastLib
-    def encrypt_13370000(data)
-	    # Encrypt
-    end
-    def decrypt_13370000(data)
-	    # Decrypt
+    
+        def encrypt_13370000(data)
+	        # Encrypt
+        end
+    
+        def decrypt_13370000(data)
+	        # Decrypt
+        end
+    
     end
 
 
