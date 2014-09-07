@@ -8,22 +8,22 @@ This is similar to capabilities like zip/ziprequire, except that it provides wor
 
     $ gem install fastlib
 
-#### Store a library structure into FASTLIB archive
+#### Store a library in a FASTLIB archive
     $ fastlib create mylib.fastlib /path/to/mylib
 
 #### Use that archive just by including the containing directory
     $ ruby -r fastlib -I . ./myapp.rb
 
-#### Store a library structure into a FASTLIB archive with compression
+#### Store a library in a FASTLIB archive with compression
     $ fastlib create -c mylib.fastlib /path/to/mylib
 
-#### Store a library structure into a FASTLIB archive with default "encryption"
+#### Store a library in a FASTLIB archive with default "encryption"
     $ fastlib create -e 0 mylib.fastlib /path/to/mylib
 
-#### Store a library structure into a FASTLIB archive with default "encryption" and compression
+#### Store a library in a FASTLIB archive with default "encryption" and compression
     $ fastlib create -c -e 0 mylib.fastlib /path/to/mylib
 
-#### Store a library structure into a FASTLIB archive with custom encryption and compression
+#### Store a library in a FASTLIB archive with custom encryption and compression
     $ fastlib create -I . -r mycrypto -c 0 -e 0x1337 mylib.fastlib /path/to/mylib
 
 ```
