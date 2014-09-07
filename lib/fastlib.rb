@@ -11,18 +11,10 @@
 # AV-resistance of the Metasploit Framework and Rex libraries.
 #
 
-
-#
-# This library is still in its early form; a large number of performance and
-# compatiblity improvements are not yet included. Do not depend on the FASTLIB
-# file format at this time.
-#
-
 require "find"
 
-
 #
-# Copyright (C) 2011 Rapid7. You can redistribute it and/or
+# Copyright (C) 2011-2014 Rapid7, Inc. You can redistribute it and/or
 # modify it under the terms of the ruby license.
 #
 # 
@@ -37,7 +29,7 @@ require "find"
 #
 class FastLib
 
-	VERSION = "0.0.7"
+	VERSION = "0.0.8"
 
 	FLAG_COMPRESS = 0x01
 	FLAG_ENCRYPT  = 0x02
@@ -187,7 +179,7 @@ class FastLib
 	# directory that should be excluded from the archived path, and finally
 	# the list of specific files and directories to include in the archive.
 	#
-	def self.dump(lib, flag, bdir, *dirs)
+	def self.create(lib, flags, bdir, *dirs)
 		head = ""
 		data = ""
 		hidx = 0
@@ -196,8 +188,16 @@ class FastLib
 		bdir = bdir.gsub(/\/$/, '')
 		brex = /^#{Regexp.escape(bdir)}\//
 		
+		if flags.kind_of?(::String)
+			if flags =~ /^0x/
+				flags = flags.to_i(16)
+			else
+				flags = flags.to_i
+			end
+		end
+
 		@@cache[lib] = {
-			:fastlib_flags => flag.to_i(16)
+			:fastlib_flags => flags
 		}
 		
 		dirs.each do |dir|
@@ -210,7 +210,6 @@ class FastLib
 					buff = fastlib_filter_encode(lib, fd.read(fd.stat.size))
 				end
 				
-
 				head << [ name.length, didx, buff.length, ::File.stat(path).mtime.utc.to_i ].pack("NNNN")
 				head << name
 				hidx = hidx + 16 + name.length
@@ -224,14 +223,14 @@ class FastLib
 		
 		::File.open(lib, "wb") do |fd|
 			fd.write("FAST")
-			fd.write( [ head.length, flag.to_i(16) ].pack("NN") )
+			fd.write( [ head.length, flags ].pack("NN") )
 			fd.write( head )
 			fd.write( data )
 		end	
 	end
 	
 	#
-	# This archive provides a way to list the contents of an archive
+	# This method provides a way to list the contents of an archive
 	# file, returning the names only in sorted order.
 	#
 	def self.list(lib)
@@ -240,8 +239,8 @@ class FastLib
 	end
 	
 	#
-	# This method is called on the loaded is required to expand __FILE__
-	# and other inline dynamic constants to map to the correct location.
+	# This method is expands __FILE__ sequences and other inline dynamic constants
+	# to map to the correct location.
 	#
 	def self.post_process(lib, name, data)
 		data.gsub('__FILE__', "'#{ ::File.expand_path(::File.join(::File.dirname(lib), name)) }'")
@@ -276,51 +275,6 @@ class FastLib
 	end	
 end
 
-
-#
-# Allow this library to be used as an executable to create and list
-# FASTLIB archives
-#
-if __FILE__ == $0
-	cmd = ARGV.shift
-	unless ["store", "list", "version"].include?(cmd)
-		$stderr.puts "Usage: #{$0} [dump|list|version] <arguments>"
-		exit(0)
-	end
-	
-	case cmd
-	when "store"
-		dst = ARGV.shift
-		flg = ARGV.shift
-		dir = ARGV.shift
-		src = ARGV
-		unless dst and dir and src.length > 0
-			$stderr.puts "Usage: #{$0} store destination.fastlib flags base_dir src1 src2 ... src99"
-			exit(0)
-		end
-		FastLib.dump(dst, flg, dir, *src)
-	
-	when "list"
-		src = ARGV.shift
-		unless src
-			$stderr.puts "Usage: #{$0} list"
-			exit(0)
-		end
-		$stdout.puts "Library: #{src}"
-		$stdout.puts "====================================================="
-		FastLib.list(src).each do |name|
-			fsize = FastLib.cache[src][name][1]
-			ftime = ::Time.at(FastLib.cache[src][name][2]).strftime("%Y-%m-%d %H:%M:%S")
-			$stdout.puts sprintf("%9d\t%20s\t%s\n", fsize, ftime, name)
-		end
-		$stdout.puts ""
-
-	when "version"
-		$stdout.puts "FastLib Version #{FastLib.version}"
-	end
-	
-	exit(0)
-end
 
 #
 # FASTLIB archive format (subject to change without notice)
