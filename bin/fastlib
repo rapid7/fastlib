@@ -6,12 +6,18 @@ require 'fastlib'
 require 'optparse'
 require 'ostruct'
 
-
 options = OpenStruct.new(action: nil, archive: nil, required: nil, included: nil, compress: nil, encrypt: nil, verbose: nil)
 
 option_parser = OptionParser.new do |opts|
   opts.banner = "Usage: #{$0} <action> [options] <arguments>"
   opts.separator "Create or list the contents of a fastlib archive"
+  opts.separator ""
+  opts.separator "Examples"
+  opts.separator "  fastlib create mylib.fastlib mylib/"
+  opts.separator "  fastlib create -c mylib_compressed.fastlib mylib/"
+  opts.separator "  fastlib create -c -e 0 mylib_compressed_encrypted.fastlib mylib/"
+  opts.separator "  fastlib create -c -e 0x4444 -I /my/crypto/lib -r mycrypto mylib_compressed_encrypted_custom.fastlib mylib/"
+  opts.separator "  fastlib list mycompressed.fastlib"
   opts.separator ""
   opts.separator "Options"
 
