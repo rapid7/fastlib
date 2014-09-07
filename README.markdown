@@ -6,26 +6,25 @@ This is similar to capabilities like zip/ziprequire, except that it provides wor
 
 # Usage
 
-    $ rvmsudo gem install fastlib
+    $ gem install fastlib
 
 ## Store a library structure into FASTLIB archive
-    $ `gem env gemdir`/gems/fastlib-\*/lib/fastlib.rb store 00000000 myarchive.fastlib lib/ lib/\*
-    $ rm -rf lib
+    $ fastlib create mylib.fastlib /path/to/mylib
 
 ## Use that archive just by including the containing directory
-    $ ruby -r rubygems -r fastlib -I. ./app.rb
+    $ ruby -r fastlib -I . ./myapp.rb
 
 ## Store a library structure into a FASTLIB archive with compression
-    $ `gem env gemdir`/gems/fastlib-\*/lib/fastlib.rb store 00000001 myarchive.fastlib lib/ lib/\*
+    $ fastlib create -c mylib.fastlib /path/to/mylib
 
 ## Store a library structure into a FASTLIB archive with default "encryption"
-    $ `gem env gemdir`/gems/fastlib-\*/lib/fastlib.rb store 00000002 myarchive.fastlib lib/ lib/\*
+    $ fastlib create -e 0 mylib.fastlib /path/to/mylib
 
 ## Store a library structure into a FASTLIB archive with default "encryption" and compression
-    $ `gem env gemdir`/gems/fastlib-\*/lib/fastlib.rb store 00000003 myarchive.fastlib lib/ lib/\*
+    $ fastlib create -c -e 0 mylib.fastlib /path/to/mylib
 
 ## Store a library structure into a FASTLIB archive with custom encryption and compression
-    $ ruby -I . -r mycrypto.rb `gem env gemdir`/gems/fastlib-\*/lib/fastlib.rb store 13370003 myarchive.fastlib lib/ lib/\*
+    $ fastlib create -I . -r mycrypto -c 0 -e 0x1337 mylib.fastlib /path/to/mylib
 
 $ cat mycrypto.rb
 
@@ -33,11 +32,11 @@ $ cat mycrypto.rb
     
     class FastLib
     
-        def self.encrypt_13370000(data)
+        def self.encrypt_00133700(data)
 	        # Encrypt
         end
     
-        def self.decrypt_13370000(data)
+        def self.decrypt_00133700(data)
 	        # Decrypt
         end
     
@@ -45,4 +44,4 @@ $ cat mycrypto.rb
 
 
 # Credits
-Rapid7 LLC
+Rapid7, Inc.
