@@ -24,7 +24,7 @@ This is similar to capabilities like zip/ziprequire, except that it provides wor
     $ fastlib create -c -e 0 mylib.fastlib /path/to/mylib
 
 #### Store a library in a FastLib archive with custom encryption and compression
-    $ fastlib create -I . -r mycrypto -c 0 -e 0x1337 mylib.fastlib /path/to/mylib
+    $ fastlib create -I . -r mycrypto -c -e 0xdeadee mylib.fastlib /path/to/mylib
 
 ```
 $ cat mycrypto.rb
@@ -33,11 +33,11 @@ $ cat mycrypto.rb
     
     class FastLib
     
-        def self.encrypt_00133700(data)
+        def self.encrypt_deadee00(data)
           # Encrypt
         end
     
-        def self.decrypt_00133700(data)
+        def self.decrypt_deadee00(data)
           # Decrypt
         end
     
